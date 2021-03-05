@@ -136,23 +136,26 @@ unit_speed_combat = [i for i in regex.finditer(r"VitesseCombat .*", unitData_raw
 # print(unit_speed_combat[0])
 # print(unit_speed_combat.__len__())
 
+max_acc_index = 0
 # MaxAcceleration 1659
 unit_max_acceleration = [i for i in regex.finditer(r"MaxAcceleration .*", unitData_raw)]
-print("MaxAcceleration")
-print(unit_max_acceleration[0])
-print(unit_max_acceleration.__len__())
+# print("MaxAcceleration")
+# print(unit_max_acceleration[0])
+# print(unit_max_acceleration.__len__())
 
-# # MaxDeceleration 1659
-# unit_max_deceleration = [i for i in regex.finditer(r"MaxDeceleration .*", unitData_raw)]
+max_dec_index = 0
+# MaxDeceleration 1659
+unit_max_deceleration = [i for i in regex.finditer(r"MaxDeceleration .*", unitData_raw)]
 # print("MaxDeceleration")
 # print(unit_max_deceleration[0])
 # print(unit_max_deceleration.__len__())
-#
-# # Half turn time 1659
-# unit_half_turn_time = [i for i in regex.finditer(r"TempsDemiTour .*", unitData_raw)]
-# print("Half turn time")
-# print(unit_half_turn_time[0])
-# print(unit_half_turn_time.__len__())
+
+half_turn_index = 0
+# Half turn time 1659
+unit_half_turn_time = [i for i in regex.finditer(r"TempsDemiTour .*", unitData_raw)]
+print("Half turn time")
+print(unit_half_turn_time[0])
+print(unit_half_turn_time.__len__())
 #
 # # VehicleSubType 1659
 # unit_vehicle_sub_type = [i for i in regex.finditer(r"VehicleSubType .*", unitData_raw)]
@@ -241,6 +244,23 @@ for i in range(unit_names.__len__()):
         unit["max speed"] = \
             unit_speed_combat[speed_combat_index].group().replace("VitesseCombat : ", "")
         speed_combat_index += 1
+
+    while (max_acc_index < len(unit_max_acceleration)) and \
+            (unit_max_acceleration[max_acc_index].span()[0] < next_unit_position):
+        unit["max acceleration"] = \
+            unit_max_acceleration[max_acc_index].group().replace("MaxAcceleration : ", "")
+        max_acc_index += 1
+
+    while (max_dec_index < len(unit_max_deceleration)) and \
+            (unit_max_deceleration[max_dec_index].span()[0] < next_unit_position):
+        unit["max deceleration"] = \
+            unit_max_deceleration[max_dec_index].group().replace("MaxDeceleration : ", "")
+        max_dec_index += 1
+
+
+
+
+
 
     # while (weapon_index < len(unit_weapon)) and \
     #         (unit_weapon[weapon_index].span()[0] < next_unit_position):

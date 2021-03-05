@@ -1,0 +1,10 @@
+// Garder synchro avec UIWargame2InGameOptionsResources.h et GameSpecificOptionList.ndf
+EPawnPowerDisplayMode is TBaseClass
+(
+    PowerDisplayOnePhase                is 0
+    PowerDisplayAllPhases               is 1
+    PowerDisplayAllPhasesTotal          is 2
+    PowerDisplayAllPhasesTotalSeparated is 3
+    PowerDisplayTotal                   is 4
+    Length                              is 5
+)

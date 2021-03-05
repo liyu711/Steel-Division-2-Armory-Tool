@@ -1,0 +1,55 @@
+//=========
+// STEELMAN
+//=========
+
+Descriptor_Deck_Defense_Axis is TDeckDescriptor
+(
+    DeckIdentifier = 'DeckDefenseAxis'
+    DeckPackList =
+    [
+        TDeckPackDescription
+        (
+            Quantity = 1
+            DeckPack = $/GFX/Everything/Descriptor_Deck_Pack_DeckDefense_GER
+        ),
+    ]
+)
+
+Descriptor_Deck_Defense_FIN is TDeckDescriptor
+(
+    DeckIdentifier = 'DeckDefenseFIN'
+    DeckPackList =
+    [
+        TDeckPackDescription
+        (
+            Quantity = 1
+            DeckPack = $/GFX/Everything/Descriptor_Deck_Pack_DeckDefense_FIN
+        ),
+    ]
+)
+
+Descriptor_Deck_Defense_Allies is TDeckDescriptor
+(
+    DeckIdentifier = 'DeckDefenseAllies'
+    DeckPackList =
+    [
+        TDeckPackDescription
+        (
+            Quantity = 1
+            DeckPack = $/GFX/Everything/Descriptor_Deck_Pack_DeckDefense_SOV
+        ),
+    ]
+)
+
+Descriptor_Deck_Defense_FrontFort is TDeckDescriptor
+(
+    DeckIdentifier = 'DeckDefense_FrontFort'
+    DeckPackList =
+    [
+        TDeckPackDescription
+        (
+            Quantity = 1
+            DeckPack = $/GFX/Everything/Descriptor_Deck_Pack_DeckDefense_FrontFort
+        ),
+    ]
+)

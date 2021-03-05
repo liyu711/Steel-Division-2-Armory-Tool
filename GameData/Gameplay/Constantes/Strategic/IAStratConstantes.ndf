@@ -1,0 +1,316 @@
+
+// CONSTANTES POUR LE GAME DESIGN
+private scaleAffichage is 0.02
+StrategicIAStratConstantes is TIAStratStrategicConstantesDescriptor
+(
+    //On ajoute le poids de tous les objectifs ainsi que cette variable. Puis on tire un nombre random X entre 0 et cette somme.
+    //On refait la somme précédente et on regarde où est tombé notre nombre X
+    //Si c'est dans le range de WeightForNoProduction, alors on ne produira rien.
+    WeightForNoProduction = 0.0
+
+    RadiusToSearchTargetToBombardAroundRealTarget = 10 * 400 * Metre
+    NbAirplanesToKeepBeforeUsingAirDeny = 1
+    NbAirplanesToKeepBeforeUsingBombard = 1
+    NbMaxPawnAllowedToFortifyPerObjective = 2
+    NbMaxPawnAllowedToFortifyAntiAirPerObjective = 2
+
+    NbMaxHQPerObjective = 2
+
+    NumberMaxOfProductionPerTurn = 3
+
+    NbApToKeepAfterMoveByZoneStatus =
+    [
+        1,  //NotActive
+        1,  //ToDefend
+        0,  //ToCapture
+        1,  //CapturedNotActive
+    ]
+
+    DefaultStartBattleDescriptor = TIAStartBattleDescriptor
+    (
+        MinVictoryNeededToAttackForObjectiveStatus =
+        [
+            EVictoryType/Draw,  //NotActive
+            EVictoryType/MinorVictory,  //ToDefend
+            EVictoryType/MinorDefeat,  //ToCapture
+            EVictoryType/Draw,  //CapturedNotActive
+        ]
+
+        MinBalanceOfPowerForAllPhaseNeededToAttackForObjectiveStatus =
+        [
+            -18,  //NotActive
+            -18,  //ToDefend
+            -18,  //ToCapture
+            -18,  //CapturedNotActive
+        ]
+    )
+
+    StartBattleDescriptorByName = MAP
+    [
+        (
+            'SuicideAttack',
+            TIAStartBattleDescriptor
+            (
+                MinVictoryNeededToAttackForObjectiveStatus =
+                [
+                    EVictoryType/TotalDefeat,   //NotActive
+                    EVictoryType/TotalDefeat,   //ToDefend
+                    EVictoryType/TotalDefeat,   //ToCapture
+                    EVictoryType/TotalDefeat,   //CapturedNotActive
+                ]
+
+                MinBalanceOfPowerForAllPhaseNeededToAttackForObjectiveStatus =
+                [
+                    -18,  //NotActive
+                    -18,  //ToDefend
+                    -18,  //ToCapture
+                    -18,  //CapturedNotActive
+                ]
+            )
+        ),
+        (
+            'MajorDefeat',
+            TIAStartBattleDescriptor
+            (
+                MinVictoryNeededToAttackForObjectiveStatus =
+                [
+                    EVictoryType/MajorDefeat,   //NotActive
+                    EVictoryType/MajorDefeat,   //ToDefend
+                    EVictoryType/MajorDefeat,   //ToCapture
+                    EVictoryType/MajorDefeat,   //CapturedNotActive
+                ]
+
+                MinBalanceOfPowerForAllPhaseNeededToAttackForObjectiveStatus =
+                [
+                    -15,  //NotActive
+                    -15,  //ToDefend
+                    -15,  //ToCapture
+                    -15,  //CapturedNotActive
+                ]
+            )
+        ),
+        (
+            'MinorDefeat',
+            TIAStartBattleDescriptor
+            (
+                MinVictoryNeededToAttackForObjectiveStatus =
+                [
+                    EVictoryType/MinorDefeat,   //NotActive
+                    EVictoryType/MinorDefeat,   //ToDefend
+                    EVictoryType/MinorDefeat,   //ToCapture
+                    EVictoryType/MinorDefeat,   //CapturedNotActive
+                ]
+
+                MinBalanceOfPowerForAllPhaseNeededToAttackForObjectiveStatus =
+                [
+                    -8,  //NotActive
+                    -8,  //ToDefend
+                    -8,  //ToCapture
+                    -8,  //CapturedNotActive
+                ]
+            )
+        ),
+        (
+            'Agressif',
+            TIAStartBattleDescriptor
+            (
+                MinVictoryNeededToAttackForObjectiveStatus =
+                [
+                    EVictoryType/Draw,   //NotActive
+                    EVictoryType/Draw,   //ToDefend
+                    EVictoryType/Draw,   //ToCapture
+                    EVictoryType/Draw,   //CapturedNotActive
+                ]
+
+                MinBalanceOfPowerForAllPhaseNeededToAttackForObjectiveStatus =
+                [
+                    -5,  //NotActive
+                    -5,  //ToDefend
+                    -5,  //ToCapture
+                    -5,  //CapturedNotActive
+                ]
+            )
+        ),
+        (
+            'Defensif', // utilise pour les pions en défense et fortifiés
+            TIAStartBattleDescriptor
+            (
+                MinVictoryNeededToAttackForObjectiveStatus =
+                [
+                    EVictoryType/Draw,   //NotActive
+                    EVictoryType/Draw,   //ToDefend
+                    EVictoryType/Draw,   //ToCapture
+                    EVictoryType/Draw,   //CapturedNotActive
+                ]
+
+                MinBalanceOfPowerForAllPhaseNeededToAttackForObjectiveStatus =
+                [
+                    3,  //NotActive
+                    3,  //ToDefend
+                    0,  //ToCapture
+                    3,  //CapturedNotActive
+                ]
+            )
+        ),
+        (
+            'Draw',
+            TIAStartBattleDescriptor
+            (
+                MinVictoryNeededToAttackForObjectiveStatus =
+                [
+                    EVictoryType/Draw,   //NotActive
+                    EVictoryType/Draw,   //ToDefend
+                    EVictoryType/Draw,   //ToCapture
+                    EVictoryType/Draw,   //CapturedNotActive
+                ]
+
+                MinBalanceOfPowerForAllPhaseNeededToAttackForObjectiveStatus =
+                [
+                    -6,  //NotActive
+                    -6,  //ToDefend
+                    -6,  //ToCapture
+                    -6,  //CapturedNotActive
+                ]
+            )
+        ),
+        (
+            'MinorVictor',
+            TIAStartBattleDescriptor
+            (
+                MinVictoryNeededToAttackForObjectiveStatus =
+                [
+                    EVictoryType/MinorVictory,   //NotActive
+                    EVictoryType/MinorVictory,   //ToDefend
+                    EVictoryType/MinorVictory,   //ToCapture
+                    EVictoryType/MinorVictory,   //CapturedNotActive
+                ]
+
+                MinBalanceOfPowerForAllPhaseNeededToAttackForObjectiveStatus =
+                [
+                    -4,  //NotActive
+                    -4,  //ToDefend
+                    -4,  //ToCapture
+                    -4,  //CapturedNotActive
+                ]
+            )
+        ),
+        (
+            'MajorVictor',
+            TIAStartBattleDescriptor
+            (
+                MinVictoryNeededToAttackForObjectiveStatus =
+                [
+                    EVictoryType/MajorVictory,   //NotActive
+                    EVictoryType/MajorVictory,   //ToDefend
+                    EVictoryType/MajorVictory,   //ToCapture
+                    EVictoryType/MajorVictory,   //CapturedNotActive
+                ]
+
+                MinBalanceOfPowerForAllPhaseNeededToAttackForObjectiveStatus =
+                [
+                    3,  //NotActive
+                    3,  //ToDefend
+                    3,  //ToCapture
+                    3,  //CapturedNotActive
+                ]
+            )
+        ),
+    ]
+
+    UnitPowerUsedForPatternEvaluation = [EUnitPowerType/Assault, EUnitPowerType/Armored, EUnitPowerType/Artillery]
+
+    DefaultPatternList =
+    [
+        TIAStratStrategicPattern
+        (
+            PatternNameForDebug = "phaseA"
+            UnitTypeCoeffByPhase = MAP
+            [
+                //(EStrategicPatternFeature/Armored | EStrategicPatternFeature/PhaseA,   5.0), //EXEMPLE
+
+                (EStrategicPatternFeature/Armored,   2.0*scaleAffichage),
+                (EStrategicPatternFeature/Assault,   1.0*scaleAffichage),
+                (EStrategicPatternFeature/Artillery, 1.0*scaleAffichage),
+
+                {(EStrategicPatternFeature/PhaseA | EStrategicPatternFeature/Armored, 50.0),
+                                (EStrategicPatternFeature/PhaseA | EStrategicPatternFeature/Assault, 20.0),
+                                (EStrategicPatternFeature/PhaseA | EStrategicPatternFeature/Artillery, 10.0),
+
+                                (EStrategicPatternFeature/PhaseB | EStrategicPatternFeature/Armored, 25.0),
+                                (EStrategicPatternFeature/PhaseB | EStrategicPatternFeature/Assault, 10.0),
+                                (EStrategicPatternFeature/PhaseB | EStrategicPatternFeature/Artillery, 5),
+
+                                (EStrategicPatternFeature/PhaseC | EStrategicPatternFeature/Armored, 5.0),
+                                (EStrategicPatternFeature/PhaseC | EStrategicPatternFeature/Assault, 2),
+                                (EStrategicPatternFeature/PhaseC | EStrategicPatternFeature/Artillery, 1.0),}
+
+                {(EStrategicPatternFeature/PhaseA,    1.0*0.02),
+                                (EStrategicPatternFeature/PhaseB,    1.0*0.02), //0.2
+                                (EStrategicPatternFeature/PhaseC,    1.0*0.02),}
+            ]
+        ),
+        { TIAStratStrategicPattern
+                (
+                    PatternNameForDebug = "Test2"
+                    UnitTypeCoeffByPhase = MAP
+                    [
+                        (EStrategicPatternFeature/Armored,   1.0),
+                        (EStrategicPatternFeature/Assault,   1.5),
+                        (EStrategicPatternFeature/Artillery, 1.0),
+                        (EStrategicPatternFeature/PhaseA,    12.0),
+                        (EStrategicPatternFeature/PhaseB,    5.0), //0.2
+                        (EStrategicPatternFeature/PhaseC,    1.0),
+                    ]
+                ),}
+    ]
+
+    PatternListByTerrain = MAP
+    [
+        (ETerrainType/ChampDeMineAP,
+        [
+            TIAStratStrategicPattern
+            (
+                PatternNameForDebug = "phaseA"
+                UnitTypeCoeffByPhase = MAP
+                [
+                    (EStrategicPatternFeature/Armored,   1.0*scaleAffichage),
+                    (EStrategicPatternFeature/Assault,   1.0*scaleAffichage),
+                    (EStrategicPatternFeature/Artillery, 1.0*scaleAffichage),
+                    //(EStrategicPatternFeature/PhaseA,    12.0),
+                    //(EStrategicPatternFeature/PhaseB,    5.0), //0.2
+                    //(EStrategicPatternFeature/PhaseC,    1.0),
+                ]
+            ),
+             {TIAStratStrategicPattern
+                         (
+                             PatternNameForDebug = "Test2"
+                             UnitTypeCoeffByPhase = MAP
+                             [
+                                 (EStrategicPatternFeature/Armored,   1.0),
+                                 (EStrategicPatternFeature/Assault,   1.5),
+                                 (EStrategicPatternFeature/Artillery, 1.0),
+                                 (EStrategicPatternFeature/PhaseA,    12.0),
+                                 (EStrategicPatternFeature/PhaseB,    5.0), //0.2
+                                 (EStrategicPatternFeature/PhaseC,    1.0),
+                             ]
+                         )}
+        ]),
+        (ETerrainType/Urbain,
+        [
+            TIAStratStrategicPattern
+            (
+                PatternNameForDebug = "phaseA"
+                UnitTypeCoeffByPhase = MAP
+                [
+                    (EStrategicPatternFeature/Armored,   0.5*scaleAffichage),
+                    (EStrategicPatternFeature/Assault,   1.0*scaleAffichage),
+                    (EStrategicPatternFeature/Artillery, 1.0*scaleAffichage),
+                    //(EStrategicPatternFeature/PhaseA,    12.0),
+                    //(EStrategicPatternFeature/PhaseB,    5.0), //0.2
+                    //(EStrategicPatternFeature/PhaseC,    1.0),
+                ]
+            ),
+        ]),
+
+    ]
+)

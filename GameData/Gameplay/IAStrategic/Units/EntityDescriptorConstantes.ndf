@@ -1,0 +1,5 @@
+
+StrategicEntityDescriptorConstantes is TStrategicEntityConstantes
+(
+    IAObjective = ~/Strategic_IAObjectiveEntityDescriptor
+)

@@ -271,13 +271,13 @@ for i in range(unit_names.__len__()):
     while (weapon_index < len(unit_weapon)) and \
             (unit_weapon[weapon_index].span()[0] < next_unit_position):
         unit["weapons"] = []
-        unit["weapons"].append(unit_weapon[weapon_index].group())
+        unit["weapons"].append(unit_weapon[weapon_index].group().replace("$/GFX/Everything/", ""))
         weapon_index += 1
 
     if i == unit_names.__len__() - 1:
         if weapon_index == len(unit_weapon) - 1:
             unit["weapons"] = []
-            unit["weapons"].append(unit_weapon[weapon_index].group())
+            unit["weapons"].append(unit_weapon[weapon_index].group().replace("$/GFX/Everything/", ""))
             weapon_index += 1
     units[unit_names[i].group()] = unit
 

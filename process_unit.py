@@ -279,12 +279,16 @@ for i in range(unit_names.__len__()):
             unit["weapons"] = []
             unit["weapons"].append(unit_weapon[weapon_index].group().replace("$/GFX/Everything/", ""))
             weapon_index += 1
-    units[unit_names[i].group()] = unit
+    units[unit_names[i].group().replace("export Descriptor_Unit_", "")] = unit
 
     # units[attributes["unit_names"][i]] = unit
 
+unit_names_formatted = []
+for unit in unit_names:
+    formatted_name = unit.group().replace("export Descriptor_Unit_", "")
+    unit_names_formatted.append(formatted_name)
 # print(units[attributes["unit_names"][i]])
-print(units[unit_names[0].group()])
+print(units[unit_names_formatted[0]])
 print(units.__len__())
 
 

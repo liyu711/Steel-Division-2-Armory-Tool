@@ -22,10 +22,13 @@ print(salvos.__len__())
 ammunition = [i for i in regex.finditer(r"~/Ammo_\w+", weapon_data_raw)]
 print(ammunition.__len__())
 
+weapons = {}
 for name in names:
+    name_formatted = name.group().replace("export ", "")
     weapon_descriptor = {
-        "name": name
+        "name": name_formatted
     }
-# for unit in units:
-#     if "weapons" in units[unit]:
-#         print(units[unit]["weapons"])
+    weapons[name_formatted] = weapon_descriptor
+
+# for weapon in weapons:
+#     print(weapon)

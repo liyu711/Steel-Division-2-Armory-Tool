@@ -1,6 +1,7 @@
 import re
 import regex
 import json
+import numpy as np
 
 weapon_data_raw = open("GameData/Generated/Gameplay/Gfx/WeaponDescriptor.ndf").read()
 f = open('units.json')
@@ -15,20 +16,66 @@ names = [i for i in regex.finditer(r"export \w+", weapon_data_raw)]
 print(names.__len__())
 
 # 2087
-salvos = [i for i in regex.finditer(r"Salves\W+(\d+\W+)+", weapon_data_raw)]
-print(salvos.__len__())
+salvos_raw = [i for i in regex.finditer(r"Salves\W+(\d+\W+)+", weapon_data_raw)]
+print(salvos_raw.__len__())
 
+salvos = []
+for sal in salvos_raw:
+    sal_array = np.asarray(
+        sal.group().replace(" ", "").replace("[", "").replace("Salves=", "").replace("]", "").split(",")).astype(int)
+    sal_array = sal_array[sal_array != -1]
+    salvos.append(sal_array)
+
+ammo_index = 0
 # 7015
 ammunition = [i for i in regex.finditer(r"~/Ammo_\w+", weapon_data_raw)]
 print(ammunition.__len__())
 
+# Element name & Weapon name: 'WeaponDescriptor_203_H17_FIN'
+
 weapons = {}
-for name in names:
-    name_formatted = name.group().replace("export ", "")
+
+# for name in names:\
+for i in range(names.__len__()):
+    if i < (names.__len__() - 1):
+        next_unit_position = names[i + 1].span()[0]
+
+    name_formatted = names[i].group().replace("export ", "")
     weapon_descriptor = {
-        "name": name_formatted
+        "name": name_formatted,
+        "salvos": salvos[i],
+        "ammunition": []
     }
+
+    while (ammo_index < ammunition.__len__()) and (ammunition[ammo_index].span()[0] < next_unit_position):
+        weapon_descriptor["ammunition"].append(ammunition[ammo_index].group().replace("~/", ""))
+        ammo_index += 1
+
     weapons[name_formatted] = weapon_descriptor
 
-# for weapon in weapons:
-#     print(weapon)
+    if i == names.__len__() - 1:
+        weapon_descriptor["ammunition"].append(ammunition[ammo_index].group().replace("~/", ""))
+
+# print(salvos[36])
+# print(names[36])
+
+
+# print(units["380mm_GER"])
+# print(units.keys())
+# print(weapons["WeaponDescriptor_AB_Engineers_UK"])
+# for ammo in ammunition:
+#     if ammo.group() == "~/Ammo_Arty_Off_Map_356mm_Barrage_UK":
+#         print("yes")
+
+
+# for name in names:
+#     if name.group() == "export WeaponDescriptor_356mm_UK":
+#         print("yes")
+
+correctSize = True
+for weapon in weapons:
+    size = len(weapons[weapon]["salvos"]) == len(weapons[weapon]["ammunition"])
+    if not size:
+        print(weapon)
+
+# print(weapons["WeaponDescriptor_Panzer_III_H_Beo"])

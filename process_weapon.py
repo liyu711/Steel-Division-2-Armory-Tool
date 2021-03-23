@@ -43,7 +43,7 @@ for i in range(names.__len__()):
     name_formatted = names[i].group().replace("export ", "")
     weapon_descriptor = {
         "name": name_formatted,
-        "salvos": salvos[i],
+        "salvos": salvos[i].tolist(),
         "ammunition": []
     }
 
@@ -56,11 +56,18 @@ for i in range(names.__len__()):
     if i == names.__len__() - 1:
         weapon_descriptor["ammunition"].append(ammunition[ammo_index].group().replace("~/", ""))
 
+for unit in units:
+    if "weapons" in units[unit]:
+        for weapon in units[unit]["weapons"]:
+            units[unit]["salvos"] = weapons[weapon]["salvos"]
+            units[unit]["ammunition"] = weapons[weapon]["ammunition"]
+
+
+## Debug
 # print(salvos[36])
 # print(names[36])
 
-
-# print(units["380mm_GER"])
+print(units["203_H17_FIN"])
 # print(units.keys())
 # print(weapons["WeaponDescriptor_AB_Engineers_UK"])
 # for ammo in ammunition:
@@ -72,10 +79,5 @@ for i in range(names.__len__()):
 #     if name.group() == "export WeaponDescriptor_356mm_UK":
 #         print("yes")
 
-correctSize = True
-for weapon in weapons:
-    size = len(weapons[weapon]["salvos"]) == len(weapons[weapon]["ammunition"])
-    if not size:
-        print(weapon)
-
-# print(weapons["WeaponDescriptor_Panzer_III_H_Beo"])
+with open("units_with_weapon.json", "w") as out_file:
+    json_obj = json.dump(units, out_file)

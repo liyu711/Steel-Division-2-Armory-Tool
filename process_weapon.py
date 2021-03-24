@@ -60,7 +60,7 @@ for unit in units:
     if "weapons" in units[unit]:
         for weapon in units[unit]["weapons"]:
             units[unit]["salvos"] = weapons[weapon]["salvos"]
-            units[unit]["ammunition"] = weapons[weapon]["ammunition"]
+            units[unit]["ammunition_descriptor"] = weapons[weapon]["ammunition"]
 
 
 ## Debug

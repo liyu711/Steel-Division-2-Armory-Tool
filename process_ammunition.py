@@ -75,10 +75,8 @@ for unit in units:
 
 print(units["203_H17_FIN"]["ammunition"])
 
-
-
-
-
+with open("units_with_ammo.json", "w") as out_file:
+    json.dump(units, out_file)
 
 # test = [i for i in regex.finditer("    PorteeMaximale .*", ammo_data_raw)]
 # print(test.__len__())

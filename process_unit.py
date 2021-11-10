@@ -2,7 +2,8 @@ import re
 import regex
 import json
 
-unitData_raw = open('temp.txt').read()
+# unitData_raw = open('temp.txt').read()
+unitData_raw = open('UniteDescriptor.ndf').read()
 
 # expression_dictionary = {
 #     "unit_names": r"export \w+",
@@ -24,9 +25,9 @@ unit_country = [i for i in re.finditer(r"MotherCountry .*", unitData_raw)]
 # print(unit_country.__len__())
 #
 # # tagSet * 1
-unit_tags = [i for i in regex.finditer(r"TagSet : \[\W+\w+\W+(\W+\w+\W+)+\w+\W+\]", unitData_raw)]
-# print(unit_tags[0])
-# print(unit_tags.__len__())
+unit_tags = [i for i in regex.finditer(r"TagSet = \[\W+\w+\W+(\W+\w+\W+)+\w+\W+\]", unitData_raw)]
+print(unit_tags[0].group())
+print(unit_tags.__len__())
 #
 # # concealment bonus * 1
 unit_concealment_bonus = [i for i in re.finditer(r"UnitConcealmentBonus .*", unitData_raw)]

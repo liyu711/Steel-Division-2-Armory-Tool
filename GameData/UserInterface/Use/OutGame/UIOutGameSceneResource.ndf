@@ -1,7 +1,0 @@
-
-specificSceneResource is TUISpecificOutGameSceneResource
-(
-    RenderTreeOutGameContext = $/M3D/Scene/RenderTreeContext_OutGame
-    RenderTreeGameplayContext = $/M3D/Scene/RenderTreeContext_InGame
-)
-

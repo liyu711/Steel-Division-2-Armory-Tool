@@ -21,7 +21,7 @@ attributes = ["TypeName", "TypeCategoryName", "Caliber", "IsAPCR", "Puissance", 
               "TempsEntreDeuxSalves", "TempsEntreDeuxSalves_Min", "TempsEntreDeuxSalves_Max",
               "NbTirParSalves", "NbrProjectilesSimultanes", "AffichageMunitionParSalve", "CanHarmInfantry",
               "CanHarmVehicles", "CanHarmHelicopters", "CanHarmAirplanes", "CanHarmGuidedMissiles",
-              "IsHarmlessForAllies"]
+              "IsHarmlessForAllies", "PorteeMinimale", "PorteeMaximale"]
 
 attribute_dict = {}
 
@@ -36,22 +36,22 @@ for attribute in attributes:
 max_index = 0
 # DispersionAtMaxRange, DispersionAtMinRange, SupplyCost, TempsDeVisee 这几个是特殊的变量单独拿出来
 dispersionAtMaxRange = [i for i in regex.finditer("    DispersionAtMaxRange .*", ammo_data_raw)]
-# print(dispersionAtMaxRange)
+print("dispersionAtMaxRange")
 print(dispersionAtMaxRange.__len__())
 
 min_index = 0
 dispersionAtMinRange = [i for i in regex.finditer("    DispersionAtMinRange .*", ammo_data_raw)]
-# print(dispersionAtMinRange)
+print("dispersionAtMinRange")
 print(dispersionAtMinRange.__len__())
 
 supply_index = 0
 supplyCost = [i for i in regex.finditer("    SupplyCost .*", ammo_data_raw)]
-# print(supplyCost)
+print("supplyCost")
 print(supplyCost.__len__())
 
 temps_index = 0
 tempsDeVisee = [i for i in regex.finditer("    TempsDeVisee .*", ammo_data_raw)]
-# print(tempsDeVisee)
+print("tempsDeVisee")
 print(tempsDeVisee.__len__())
 
 ammunition = {}

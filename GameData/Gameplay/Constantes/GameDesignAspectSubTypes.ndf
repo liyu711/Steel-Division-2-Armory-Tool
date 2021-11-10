@@ -1,4 +1,0 @@
-export GameDesignAspectSubTypes is TGameDesignAspectSubTypes
-(
-    ObstacleZone = ~/SDGameDesignAspect_ObstacleZone
-)

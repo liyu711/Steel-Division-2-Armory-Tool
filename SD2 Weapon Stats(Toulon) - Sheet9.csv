@@ -1,0 +1,25 @@
+Name,"Damage per ""shot""","Suppression per ""shot""",Stantionary Accuracy,Moving accuracy,range in meters,"time between ""shots"" in the magazine/salvo",magazine/salvo reload,"""shots"" per magazine/salvo",magazine/salvo duration in seconds,Total damage per magazine/salvo,Total suppression per salvo
+Ammo_Bren_LMG,0.5,20,0.1,,750,1,2,6,7,0.3,120
+Ammo_Polish_BAR,0.5,20,0.1,,750,0.8,2,7,6.8,0.35,140
+Ammo_Breda_30_LMG,0.5,20,0.1,0,750,1.1,2,6,7.5,0.3,120
+Ammo_FM_Chatellerault,0.5,20,0.1,,750,1.16,2,5,6.64,0.25,100
+Ammo_DT,0.5,20,0.1,,750,0.85,2,7,7.1,0.35,140
+Ammo_DP_28,0.5,20,0.1,,750,0.85,2,7,7.1,0.35,140
+Ammo_LAHTI_SALORANTA_M26,0.5,20,0.15,,750,1.1,2,6,7.5,0.45,120
+Ammo_LMG_31M,0.5,20,0.1,,750,0.75,2,7,6.5,0.35,140
+Ammo_M1918A2_BAR,0.5,20,0.1,,750,0.8,2,7,6.8,0.35,140
+Ammo_Browning_M1919A6,0.5,20,0.1,,750,1.4,4,6,11,0.3,120
+Ammo_SAMPO_L41,0.5,20,0.05,,1000,0.7,4,7,8.2,0.175,140
+Ammo_LMG_24M_Madsen,0.5,20,0.1,,750,1.16,2,5,6.64,0.25,100
+Ammo_lMG34,0.5,22,0.08,,750,0.3,3,9,5.4,0.36,198
+Ammo_lMG42,0.6,20,0.08,,750,0.25,3,9,5,0.432,180
+Ammo_lMG15,0.5,20,0.1,,750,1.4,4,6,11,0.3,120
+Ammo_lMG_0815,0.5,20,0.1,,750,1.5,4,5,10,0.25,100
+Ammo_MG26t,0.5,20,0.1,,750,1.1,2,6,7.5,0.3,120
+Ammo_FG42,0.5,20,0.15,,600,1,2,4,5,0.3,80
+Ammo_ZB_30_LMG,0.5,20,0.1,,750,0.8,2,7,6.8,0.35,140
+Ammo_ZB_vz_30,0.5,20,0.1,,750,0.5,2,5,4,0.25,100
+Ammo_Drillinge_151,0.6,30,0.05,0,750,0.9,3,8,9.3,0.24,240
+Ammo_Vickers_KGun,0.5,20,0.08,0,750,0.4,3,8,5.8,0.32,160
+Ammo_wz37_7_92mm,0.5,20,0.1,0,750,0.5,2,7,5,0.35,140
+Ammo_PK_M21,0.5,20,0.1,,750,1.1,2,6,7.5,0.3,120

@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import UnitCard from './ListPage'
-import firebase from 'firebase'
-import 'firebase/database'
+import firebase from 'firebase';
+import 'firebase/database';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAPNPEzEs2ZNj6lzINhRe9eg8DMmjit2U4",
@@ -22,8 +22,7 @@ firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <UnitCard />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

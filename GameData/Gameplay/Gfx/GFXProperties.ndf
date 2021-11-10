@@ -1,6 +1,0 @@
-
-export GfxProperties is TGfxProperties
-(
-    World                     = $/M3D/Scene/DefaultWorld
-)
-

@@ -190,7 +190,10 @@ for i in range(unit_names.__len__()):
     unit = {"name": unit_names[i].group().replace("export Descriptor_Unit_", ""),
             "country": unit_country[i * 2].group().replace("MotherCountry                    = ", "")
                 .replace('\'', ""),
-            "tagSet": ' '.join(unit_tags[i].group()[9:].split()),
+            # "tagSet": ' '.join(unit_tags[i].group()[9:].split()),
+            "tagSet":
+                regex.sub('[\[\]\"\\n ]', '', unit_tags[i].group()).replace("TagSet=", "").split(',')[:-1],
+                # unit_tags[i].group()[9:].split(),
             "concealment bonus": unit_concealment_bonus[i].group().replace("UnitConcealmentBonus = ", ""),
             "low flying altitude":
                 plane_low_flying_altitude[i * 3].group().replace("LowAltitudeFlyingAltitude  =", ""),
@@ -258,13 +261,13 @@ for i in range(unit_names.__len__()):
     while (half_turn_index < len(unit_half_turn_time)) and \
             (unit_half_turn_time[half_turn_index].span()[0] < next_unit_position):
         unit["half turn time"] = \
-            unit_half_turn_time[half_turn_index].group().replace("TempsDemiTour = ", "")
+            float(unit_half_turn_time[half_turn_index].group().replace("TempsDemiTour = ", ""))
         half_turn_index += 1
 
     while (vehicle_sub_index < len(unit_vehicle_sub_type)) and \
             (unit_vehicle_sub_type[vehicle_sub_index].span()[0] < next_unit_position):
         unit["vehicle sub type"] = \
-            unit_vehicle_sub_type[vehicle_sub_index].group().replace("LandVehicleSubType/", "")
+            unit_vehicle_sub_type[vehicle_sub_index].group().replace("VehicleSubType = LandVehicleSubType/", "")
         vehicle_sub_index += 1
 
     while (resource_point_index < len(unit_resource_point)) and \

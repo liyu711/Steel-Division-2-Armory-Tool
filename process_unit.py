@@ -174,6 +174,8 @@ print(plane_near_ground_flying_altitude[0])
 print(plane_near_ground_flying_altitude.__len__())
 
 units = {}
+
+
 for i in range(unit_names.__len__()):
 
     # for i in range(attributes["unit_names"].__len__()):
@@ -186,68 +188,77 @@ for i in range(unit_names.__len__()):
         next_unit_position = unit_names[i + 1].span()[0]
 
     unit = {"name": unit_names[i].group().replace("export Descriptor_Unit_", ""),
-            "country": unit_country[i * 2].group().replace("MotherCountry                    : ", ""),
+            "country": unit_country[i * 2].group().replace("MotherCountry                    = ", "")
+                .replace('\'', ""),
             "tagSet": ' '.join(unit_tags[i].group()[9:].split()),
-            "concealment bonus": unit_concealment_bonus[i].group().replace("UnitConcealmentBonus : ", ""),
+            "concealment bonus": unit_concealment_bonus[i].group().replace("UnitConcealmentBonus = ", ""),
             "low flying altitude":
-                plane_low_flying_altitude[i*3].group().replace("LowAltitudeFlyingAltitude  :", ""),
+                plane_low_flying_altitude[i * 3].group().replace("LowAltitudeFlyingAltitude  =", ""),
             "near ground flying altitude":
-                plane_near_ground_flying_altitude[i*3].group().replace("NearGroundFlyingAltitude   : ", ""),
-            "actual HP": unit_damage[i].group().replace("MaxDamages : ", ""),
-            "displayed HP": unit_displayed_hp[i].group().replace("MaxHPForHUD : ", ""),
-            "dangerousness": unit_dangerousness[i].group().replace("Dangerousness  : ", ""),
-            "vision range": unit_vision_range[i].group().replace("PorteeVision : ", ""),
-            "optical strength": unit_optical_strength[i].group().replace("OpticalStrength : ", ""),
-            "is transporter": unit_is_transporter[i].group().replace("IsTransporter              : ", ""),
-            "is plane": unit_is_plane[i].group().replace("IsPlane                    : ", ""),
+                int(regex.sub('[^0-9]+', '', plane_near_ground_flying_altitude[i * 3].group()))/5,
+            "actual HP": unit_damage[i].group().replace("MaxDamages = ", ""),
+            "displayed HP": unit_displayed_hp[i].group().replace("MaxHPForHUD = ", ""),
+            "dangerousness": unit_dangerousness[i].group().replace("Dangerousness  = ", ""),
+            "vision range":
+                int(regex.sub('[^0-9]+', '', unit_vision_range[i].group()))/5,
+                # .replace("PorteeVision = ", ""),
+            "optical strength": int(unit_optical_strength[i].group().replace("OpticalStrength = ", "")),
+            "is transporter": unit_is_transporter[i].group().replace("IsTransporter              = ", ""),
+            "is plane": unit_is_plane[i].group().replace("IsPlane                    = ", ""),
             }
 
     while (auto_cover_index < len(unit_auto_cover_range)) and \
             (unit_auto_cover_range[auto_cover_index].span()[0] < next_unit_position):
         unit["auto cover range"] = \
-            unit_auto_cover_range[auto_cover_index].group().replace("AutoCoverRange             : ", "")
+            int(regex.sub('[^0-9]+', '', unit_auto_cover_range[auto_cover_index].group()))
+            # (unit_auto_cover_range[auto_cover_index].group().replace("AutoCoverRange             = ", ""))
         auto_cover_index += 1
 
     while (occupation_index < len(unit_occupation_radius)) and \
             (unit_occupation_radius[occupation_index].span()[0] < next_unit_position):
         unit["occupation radius"] = \
-            unit_occupation_radius[occupation_index].group().replace("OccupationRadius           : ", "")
+            int(regex.sub('[^0-9]+', '', unit_occupation_radius[occupation_index].group()))
+            # unit_occupation_radius[occupation_index].group().replace("OccupationRadius           = ", "")
         occupation_index += 1
 
     while (towable_index < len(unit_is_towable)) and \
             (unit_is_towable[towable_index].span()[0] < next_unit_position):
         unit["towable"] = \
-            unit_is_towable[towable_index].group().replace("IsTowable                              : ", "")
+            bool(unit_is_towable[towable_index].group().replace("IsTowable                              = ", ""))
         towable_index += 1
 
     while (max_speed_index < len(unit_max_speed)) and \
             (unit_max_speed[max_speed_index].span()[0] < next_unit_position):
         unit["max speed"] = \
-            unit_max_speed[max_speed_index].group().replace("IsTowable                              : ", "")
+            int(regex.sub('[^0-9]+', '', unit_max_speed[max_speed_index].group()))
+            # unit_max_speed[max_speed_index].group().replace("IsTowable                              = ", "")
         max_speed_index += 1
 
     while (speed_combat_index < len(unit_speed_combat)) and \
             (unit_speed_combat[speed_combat_index].span()[0] < next_unit_position):
         unit["max speed"] = \
-            unit_speed_combat[speed_combat_index].group().replace("VitesseCombat : ", "")
+            int(regex.sub('[^0-9]+', '', unit_speed_combat[speed_combat_index].group()))
+            # unit_speed_combat[speed_combat_index].group().replace("VitesseCombat = ", "")
         speed_combat_index += 1
 
     while (max_acc_index < len(unit_max_acceleration)) and \
             (unit_max_acceleration[max_acc_index].span()[0] < next_unit_position):
         unit["max acceleration"] = \
-            unit_max_acceleration[max_acc_index].group().replace("MaxAcceleration : ", "")
+            float(regex.sub('[^0-9\.]+', '', unit_max_acceleration[max_acc_index].group()))
+            # unit_max_acceleration[max_acc_index].group().replace("MaxAcceleration = ", "")
         max_acc_index += 1
 
     while (max_dec_index < len(unit_max_deceleration)) and \
             (unit_max_deceleration[max_dec_index].span()[0] < next_unit_position):
         unit["max deceleration"] = \
-            unit_max_deceleration[max_dec_index].group().replace("MaxDeceleration : ", "")
+            float(regex.sub('[^0-9\.]+', '', unit_max_deceleration[max_dec_index].group()))
+            # unit_max_deceleration[max_dec_index].group().replace("MaxDeceleration = ", "")
         max_dec_index += 1
 
     while (half_turn_index < len(unit_half_turn_time)) and \
             (unit_half_turn_time[half_turn_index].span()[0] < next_unit_position):
         unit["half turn time"] = \
-            unit_half_turn_time[half_turn_index].group().replace("TempsDemiTour : ", "")
+            unit_half_turn_time[half_turn_index].group().replace("TempsDemiTour = ", "")
         half_turn_index += 1
 
     while (vehicle_sub_index < len(unit_vehicle_sub_type)) and \
@@ -265,7 +276,7 @@ for i in range(unit_names.__len__()):
     while (special_attributes_index < len(unit_special_attributes)) and \
             (unit_special_attributes[special_attributes_index].span()[0] < next_unit_position):
         unit["traits"] = \
-            unit_special_attributes[special_attributes_index].group().replace("\n                        ", "")\
+            unit_special_attributes[special_attributes_index].group().replace("\n                        ", "") \
                 .replace(",\n                    ", "")
         special_attributes_index += 1
 
@@ -291,7 +302,6 @@ for unit in unit_names:
 # print(units[attributes["unit_names"][i]])
 print(units[unit_names_formatted[0]])
 print(units.__len__())
-
 
 with open("units.json", "w") as out_file:
     json_obj = json.dump(units, out_file)

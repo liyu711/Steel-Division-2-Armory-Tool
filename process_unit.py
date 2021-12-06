@@ -188,19 +188,19 @@ for i in range(unit_names.__len__()):
         next_unit_position = unit_names[i + 1].span()[0]
 
     unit = {"name": unit_names[i].group().replace("export Descriptor_Unit_", ""),
-            "country": unit_country[i * 2].group().replace("MotherCountry                    = ", "")
-                .replace('\'', ""),
+            "country": unit_country[i * 2].group().replace("MotherCountry                    = ", "").replace('\'', ""),
             # "tagSet": ' '.join(unit_tags[i].group()[9:].split()),
             "tagSet":
                 regex.sub('[\[\]\"\\n ]', '', unit_tags[i].group()).replace("TagSet=", "").split(',')[:-1],
                 # unit_tags[i].group()[9:].split(),
-            "concealment bonus": unit_concealment_bonus[i].group().replace("UnitConcealmentBonus = ", ""),
+            "concealment bonus": float(unit_concealment_bonus[i].group().replace("UnitConcealmentBonus = ", "")),
             "low flying altitude":
-                plane_low_flying_altitude[i * 3].group().replace("LowAltitudeFlyingAltitude  =", ""),
+                int(regex.sub('[^0-9\.]+', '', plane_low_flying_altitude[i * 3].group())) / 5,
+                # plane_low_flying_altitude[i * 3].group().replace("LowAltitudeFlyingAltitude  =", ""),
             "near ground flying altitude":
                 int(regex.sub('[^0-9]+', '', plane_near_ground_flying_altitude[i * 3].group()))/5,
-            "actual HP": unit_damage[i].group().replace("MaxDamages = ", ""),
-            "displayed HP": unit_displayed_hp[i].group().replace("MaxHPForHUD = ", ""),
+            "actual HP": float(unit_damage[i].group().replace("MaxDamages = ", "")),
+            "displayed HP": int(unit_displayed_hp[i].group().replace("MaxHPForHUD = ", "")),
             "dangerousness": unit_dangerousness[i].group().replace("Dangerousness  = ", ""),
             "vision range":
                 int(regex.sub('[^0-9]+', '', unit_vision_range[i].group()))/5,
